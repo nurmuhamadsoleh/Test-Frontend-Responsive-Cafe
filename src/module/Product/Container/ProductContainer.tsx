@@ -5,29 +5,14 @@ import { createClient } from "@supabase/supabase-js";
 import { toast } from "react-toastify";
 
 export default function ProductContainer() {
-  const supabaseUrl: any = "https://nhlaxvquhtucrcblxlej.supabase.co";
-  const supabaseKey: any =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5obGF4dnF1aHR1Y3JjYmx4bGVqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDM5MDA5ODEsImV4cCI6MjAxOTQ3Njk4MX0.64la-3VsYfWV8Pn8D9PPyCINpjiCUIBNTui_4ssE0HA";
+  const supabaseUrl: any = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey: any = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   console.log("supabesurl", supabaseUrl);
   const supabase = createClient(supabaseUrl, supabaseKey);
   const [activeTab, setActiveTab] = useState<string>("seasonal");
   const productListRef = useRef(null);
   const [dataImage, setDataImage] = useState<any>();
-  useEffect(() => {
-    if (activeTab && productListRef.current) {
-      const targetElement = productListRef.current.querySelector(
-        `#tab-${activeTab}`
-      );
-      if (targetElement) {
-        const yOffset = -75;
-        const y =
-          targetElement.getBoundingClientRect().top +
-          window.pageYOffset +
-          yOffset;
-        window.scrollTo({ top: y, behavior: "smooth" });
-      }
-    }
-  }, [activeTab]);
+
   useEffect(() => {
     const fetchImage = async () => {
       try {
@@ -50,8 +35,28 @@ export default function ProductContainer() {
     fetchImage();
   }, []);
   const handleMenuClick = (key: any) => {
+    // console.log("productListRef.current", productListRef.current);
     setActiveTab(key);
   };
+  console.log("activeTab", activeTab);
+  // useEffect(() => {
+  //   if (activeTab && productListRef.current) {
+  //     .querySelector(
+  //       `#tab-${activeTab}`
+  //     );
+  //     mengambil id menggunakan useRef
+  //     const targetElement = productListRef.current.id(`#tab-${activeTab}`);
+  //     console.log("target", targetElement);
+  //     if (targetElement) {
+  //       const yOffset = -75;
+  //       const y =
+  //         targetElement.getBoundingClientRect().top +
+  //         window.pageYOffset +
+  //         yOffset;
+  //       window.scrollTo({ top: y, behavior: "smooth" });
+  //     }
+  //   }
+  // }, [activeTab]);
   return (
     <ProductComponent
       dataImage={dataImage}

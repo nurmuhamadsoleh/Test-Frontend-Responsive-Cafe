@@ -1,6 +1,5 @@
 import BgCover from "../../../assets/images/motif.png";
 import { Carousel } from "antd";
-import Contoh from "../../../assets/images/contoh.jpg";
 import Home from "../../../assets/images/home1.png";
 import HomeHover from "../../../assets/images/home2.png";
 import Image from "next/image";
@@ -22,7 +21,7 @@ function DashboardComponent(props: IProps) {
     position: "relative",
     height: "160px",
     width: "100%",
-    background: `url(${Contoh}) no-repeat center center fixed`,
+    background: `url(${BgCover}) no-repeat center center fixed`,
     backgroundSize: "cover",
     zIndex: 0,
   };

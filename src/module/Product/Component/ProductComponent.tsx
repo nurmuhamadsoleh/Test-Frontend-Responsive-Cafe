@@ -41,7 +41,7 @@ export default function ProductComponent(props: IProps) {
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
         price: "Rp. 50,000",
-        imageUrl: `${process.env.NEXT_CDN_UPLOAD_IMAGE}${data.name}`,
+        imageUrl: `${process.env.NEXT_PUBLIC_CDN_UPLOAD_IMAGE}${data.name}`,
       };
       if (index < 3) {
         productData.seasonal.content.push({
@@ -74,7 +74,8 @@ export default function ProductComponent(props: IProps) {
             mode={"horizontal"}
             selectedKeys={[activeTab]}
             onClick={handleMenuClick}
-            style={{ whiteSpace: "nowrap", overflowX: "auto" }}
+            style={{ whiteSpace: "nowrap", overflowX: "scroll" }}
+            className="w-full bg-red-600"
           >
             {Object.keys(productData).map((tabKey: any) => (
               <Menu.Item key={tabKey}>{productData[tabKey].head}</Menu.Item>
