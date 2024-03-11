@@ -1,10 +1,8 @@
 import BgCover from "../../../assets/images/motif.png";
 import { Carousel } from "antd";
 import Home from "../../../assets/images/home1.png";
-import HomeHover from "../../../assets/images/home2.png";
 import Image from "next/image";
 import LogoHeader from "../../../assets/images/logo technopartner.png";
-import Menu from "../../../assets/images/menu1.png";
 import MenuHover from "../../../assets/images/menu2.png";
 import { QRCode } from "antd";
 import React from "react";
@@ -53,10 +51,6 @@ function DashboardComponent(props: IProps) {
             />
           </div>
         </div>
-        {/* <div style={{backgroundImage: "url("paper.gif")"}}></div> */}
-        {/* <div className="flex flex-col items-center hover:cursor-pointer">
-          <div>Transaksi</div>
-        </div> */}
       </div>
       <div
         className="flex justify-center mt-5 shadow-md"
@@ -66,13 +60,12 @@ function DashboardComponent(props: IProps) {
           <div>
             <span className="font-normal">Good Afternoon,</span>
           </div>
-          <span className="font-bold">Guntur Sa putro</span>
+          <span className="font-bold">Guntur Saputro</span>
           <div className="flex flex-row justify-between mt-6">
             <div className="hover:cursor-pointer" onClick={handleViewQrcode}>
               <QRCode
                 value={qrcode || "-"}
                 className="rounded-full shadow-2xl"
-                // iconSize={500 / 4}
                 size={70}
               />
             </div>
@@ -83,7 +76,7 @@ function DashboardComponent(props: IProps) {
             </div>
             <div className="flex flex-col items-end">
               <span className="font-normal">Rp.279.000</span>
-              <span className="font-medium">2.500</span>
+              <span className="font-medium text-green-400">2.500</span>
             </div>
           </div>
         </div>
@@ -93,7 +86,6 @@ function DashboardComponent(props: IProps) {
         autoplaySpeed={3000}
         effect="scrollx"
         dotPosition="bottom"
-        // easing="linear"
       >
         <div>
           <Image src={LogoHeader} alt="Image 1" style={contentStyle} />

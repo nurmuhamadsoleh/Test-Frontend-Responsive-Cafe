@@ -1,5 +1,3 @@
-import "swiper/css";
-import "swiper/css/pagination";
 import "react-toastify/dist/ReactToastify.css";
 import "@uppy/core/dist/style.css";
 import "@uppy/drag-drop/dist/style.css";
@@ -7,14 +5,12 @@ import "@uppy/dashboard/dist/style.css";
 import "@uppy/progress-bar/dist/style.css";
 import "@uppy/file-input/dist/style.css";
 import "@uppy/image-editor/dist/style.css";
-import "react-reflex/styles.css";
 import "styles/globals.css";
 
 import { useEffect, useState } from "react";
 
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import Template from "component/Template";
 import { useRouter } from "next/router";
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -53,19 +49,10 @@ export default function App({ Component, pageProps }: AppProps) {
       router.events.off("routeChangeError", handleStop);
     };
   }, [router]);
-
-  // const queryClient = new QueryClient({
-  //   defaultOptions: {
-  //     queries: {
-  //       retry: false,
-  //       cacheTime: 0,
-  //     },
-  //   },
-  // });
   return (
     <>
       <Head>
-        <title>Diana Laundry</title>
+        <title>TechnoPartner</title>
       </Head>
       <div className="light m-0 p-0 ">
         <Component />

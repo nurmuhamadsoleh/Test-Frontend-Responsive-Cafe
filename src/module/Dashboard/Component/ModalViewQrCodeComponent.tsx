@@ -13,10 +13,17 @@ function ModalViewQrCodeComponent(props: IProps) {
       footer={null}
       open
       onCancel={onClose}
-      width={200}
-      className="flex justify-center"
+      width={300}
+      className="flex justify-center items-center"
     >
-      <QRCode value={qrcode || ""} />
+      <div className="mt-5">
+        <span className="font-semibold text-xs capitalize">
+          Show the QR Code below to the cashier
+        </span>
+        <div className="flex justify-center mt-3">
+          <QRCode value={qrcode || ""} />
+        </div>
+      </div>
     </Modal>
   );
 }

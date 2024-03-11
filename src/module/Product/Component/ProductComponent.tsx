@@ -1,11 +1,13 @@
-import { Menu } from "antd";
+import { LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
+
 import React from "react";
 
 interface IProps {
-  handleMenuClick: (_vals: any) => void;
-  activeTab: string;
-  productListRef: React.MutableRefObject<any>;
   dataImage: any;
+  setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
+  activeIndex: number;
+  handlePrev: () => void;
+  handleNext: () => void;
 }
 interface ProductItem {
   title: string;
@@ -14,7 +16,8 @@ interface ProductItem {
   imageUrl: string;
 }
 export default function ProductComponent(props: IProps) {
-  const { handleMenuClick, activeTab, productListRef, dataImage } = props;
+  const { dataImage, activeIndex, setActiveIndex, handleNext, handlePrev } =
+    props;
   const productData: any = {
     seasonal: {
       head: "Seasonal Products",
@@ -66,56 +69,415 @@ export default function ProductComponent(props: IProps) {
       }
     });
   return (
-    <div className="bg-white w-full md:max-w-2xl mx-auto">
-      <div className="flex bg-white flex-col justify-center items-center mx-auto sticky top-0">
-        <h3 className="uppercase text-black font-semibold">Menu</h3>
-        <div className="w-full mx-10 overflow-x-auto">
-          <Menu
-            mode={"horizontal"}
-            selectedKeys={[activeTab]}
-            onClick={handleMenuClick}
-            style={{ whiteSpace: "nowrap", overflowX: "scroll" }}
-            className="w-full bg-red-600"
+    <div className="flex flex-col lg:w-full md:w-1/2 sm:w-1/3 mx-auto relative">
+      <div className="flex lg:w-full w-screen mx-auto h-14 fixed">
+        {/* Tab Header */}
+        <button
+          className=" text-black bg-yellow-500 font-medium rounded-s-full shadow-2xl"
+          onClick={handlePrev}
+        >
+          <LeftCircleOutlined className="font-bold text-xl" />
+        </button>
+        <button
+          className={`flex-grow border-r border-gray-300 focus:outline-none ${
+            activeIndex === 1
+              ? "bg-white border-b-4 border-l-0 border-t-0 border-r-0 border-black text-lg"
+              : ""
+          }`}
+          onClick={() => setActiveIndex(1)}
+        >
+          <span
+            className={`${
+              activeIndex === 1
+                ? "font-bold lg:text-lg text-sm lg:leading-none leading-normal pb-0"
+                : "font-normal"
+            }`}
           >
-            {Object.keys(productData).map((tabKey: any) => (
-              <Menu.Item key={tabKey}>{productData[tabKey].head}</Menu.Item>
-            ))}
-          </Menu>
-        </div>
+            Seasonal Product
+          </span>
+        </button>
+        <button
+          className={`flex-grow border-r border-gray-300 focus:outline-none ${
+            activeIndex === 2
+              ? "bg-white border-b-4 border-l-0 border-t-0 border-r-0 border-black text-lg"
+              : ""
+          }`}
+          onClick={() => setActiveIndex(2)}
+        >
+          <span
+            className={`${
+              activeIndex === 2
+                ? "font-bold lg:text-lg text-sm lg:leading-none leading-normal pb-0"
+                : "font-normal"
+            }`}
+          >
+            Best Seller
+          </span>
+        </button>
+        <button
+          className={`flex-grow py-2 border-r border-gray-300 focus:outline-none ${
+            activeIndex === 3
+              ? "bg-white border-b-4 border-l-0 border-t-0 border-r-0 border-black text-lg"
+              : ""
+          }`}
+          onClick={() => setActiveIndex(3)}
+        >
+          <span
+            className={`${
+              activeIndex === 3
+                ? "font-bold lg:text-lg text-sm lg:leading-none leading-normal pb-0"
+                : "font-normal"
+            }`}
+          >
+            Coffee
+          </span>
+        </button>
+        <button
+          className={`flex-grow border-r border-gray-300 focus:outline-none ${
+            activeIndex === 4
+              ? "bg-white border-b-4 border-l-0 border-t-0 border-r-0 border-black text-lg"
+              : ""
+          }`}
+          onClick={() => setActiveIndex(4)}
+        >
+          <span
+            className={`${
+              activeIndex === 4
+                ? "font-bold lg:text-lg text-sm lg:leading-none leading-normal pb-0"
+                : "font-normal"
+            }`}
+          >
+            Tea
+          </span>
+        </button>
+        {/* Add more buttons for additional tabs */}
+        <button
+          className=" text-black bg-yellow-500 font-medium rounded-e-full shadow-2xl"
+          onClick={handleNext}
+        >
+          <RightCircleOutlined className="font-bold text-xl" />
+        </button>
       </div>
-      <div className="w-full mx-auto" ref={productListRef}>
-        {Object.keys(productData).map((tabKey) => (
-          <div
-            key={tabKey}
-            id={`tab-${tabKey}`}
-            className="text-center flex flex-col gap-4 px-4 xl:px-8"
-          >
-            <h3 className="text-black text-start semi-bold">
-              {productData[tabKey].head}
-            </h3>
-            {productData[tabKey].content.map((product: any, index: any) => (
-              <div
-                key={index}
-                className="flex justify-center gap-8 pb-4 shadow-lg bg-white border-gray-200 rounded-lg text-black items-center p-2 md:p-4 border-b"
-              >
-                <div className="w-3/12 flex justify-start items-center">
-                  <img
-                    src={product.imageUrl}
-                    alt={product.title}
-                    className="w-14 h-14 md:w-32 md:h-32 xl:w-36 xl:h-36 object-cover"
-                  />
-                </div>
-                <div className="w-7/12 flex flex-col justify-start items-start text-left">
-                  <span className="text-lg font-semibold">{product.title}</span>
-                  <span className="justify">{product.description}</span>
-                </div>
-                <div className="w-3/12 flex items-start -mt-20">
-                  <span className="text-xs">{product.price}</span>
-                </div>
-              </div>
-            ))}
+
+      {/* Tab Content 1*/}
+      <div className="">
+        {activeIndex === 1 && (
+          <div className="h-fit mt-16">
+            <div className="h-1/3 ">
+              <h1 className="font-bold text-black capitalize text-lg lg:ml-32 text-center lg:text-left">
+                Seasonal Product
+              </h1>
+              {Object.keys(productData)
+                .filter((tabKey) => tabKey.toLowerCase() === "seasonal")
+                .map((filteredTabKey) => {
+                  const products = productData[filteredTabKey];
+
+                  return products.content?.map(
+                    (product: any, productIndex: any) => (
+                      <>
+                        <div
+                          key={productIndex}
+                          className="flex mx-auto w-[80vw] mb-4 shadow-lg bg-white border-gray-200 rounded-lg text-black items-center border-b"
+                        >
+                          <div className="lg:w-3/12 flex justify-start items-center lg:my-3 lg:ml-2 ml-2">
+                            <img
+                              src={product.imageUrl}
+                              alt={product.title}
+                              className="h-16 w-12 md:w-10 md:h-32 xl:w-36 xl:h-36 object-cover rounded-md"
+                            />
+                          </div>
+                          <div className=" lg:w-full w-1/2 flex flex-col lg:justify-start lg:items-start lg:ml-0 ml-2">
+                            <span className="lg:text-lg text-sm font-bold">
+                              {product.title}
+                            </span>
+                            <span className="text-left lg:text-base text-sm">
+                              {product.description}
+                            </span>
+                          </div>
+                          <div className="w-3/12 flex items-start lg:pl-0 pl-1 lg:-mt-24 -mt-14">
+                            <span className="text-xs font-medium">
+                              {product.price}
+                            </span>
+                          </div>
+                        </div>
+                      </>
+                    )
+                  );
+                })}
+            </div>
+            <div className="h-1/3">
+              <h1 className="font-bold text-black capitalize text-lg lg:ml-32 text-center lg:text-left">
+                Best Seller
+              </h1>
+              {Object.keys(productData)
+                .filter((tabKey) => tabKey.toLowerCase() === "best-seller")
+                .map((filteredTabKey) => {
+                  const products = productData[filteredTabKey];
+
+                  return products.content?.map(
+                    (product: any, productIndex: any) => (
+                      <>
+                        <div
+                          key={productIndex}
+                          className="flex mx-auto w-[80vw] mb-4 shadow-lg bg-white border-gray-200 rounded-lg text-black items-center border-b"
+                        >
+                          <div className="lg:w-3/12 flex justify-start items-center lg:my-3 lg:ml-2 ml-2">
+                            <img
+                              src={product.imageUrl}
+                              alt={product.title}
+                              className="h-16 w-12 md:w-10 md:h-32 xl:w-36 xl:h-36 object-cover rounded-md"
+                            />
+                          </div>
+                          <div className=" lg:w-full w-1/2 flex flex-col lg:justify-start lg:items-start lg:ml-0 ml-2">
+                            <span className="lg:text-lg text-sm font-bold">
+                              {product.title}
+                            </span>
+                            <span className="text-left lg:text-base text-sm">
+                              {product.description}
+                            </span>
+                          </div>
+                          <div className="w-3/12 flex items-start lg:pl-0 pl-1 lg:-mt-24 -mt-14">
+                            <span className="text-xs font-medium">
+                              {product.price}
+                            </span>
+                          </div>
+                        </div>
+                      </>
+                    )
+                  );
+                })}
+            </div>
           </div>
-        ))}
+        )}
+        {activeIndex === 2 && (
+          <div>
+            <div className="h-fit mt-16">
+              <div className="h-1/3 ">
+                <h1 className="font-bold text-black capitalize text-lg lg:ml-32 text-center lg:text-left">
+                  Best Seller
+                </h1>
+                {Object.keys(productData)
+                  .filter((tabKey) => tabKey.toLowerCase() === "best-seller")
+                  .map((filteredTabKey) => {
+                    const products = productData[filteredTabKey];
+
+                    return products.content?.map(
+                      (product: any, productIndex: any) => (
+                        <>
+                          <div
+                            key={productIndex}
+                            className="flex mx-auto w-[80vw] mb-4 shadow-lg bg-white border-gray-200 rounded-lg text-black items-center border-b"
+                          >
+                            <div className="lg:w-3/12 flex justify-start items-center lg:my-3 lg:ml-2 ml-2">
+                              <img
+                                src={product.imageUrl}
+                                alt={product.title}
+                                className="h-16 w-12 md:w-10 md:h-32 xl:w-36 xl:h-36 object-cover rounded-md"
+                              />
+                            </div>
+                            <div className=" lg:w-full w-1/2 flex flex-col lg:justify-start lg:items-start lg:ml-0 ml-2">
+                              <span className="lg:text-lg text-sm font-bold">
+                                {product.title}
+                              </span>
+                              <span className="text-left lg:text-base text-sm">
+                                {product.description}
+                              </span>
+                            </div>
+                            <div className="w-3/12 flex items-start lg:pl-0 pl-1 lg:-mt-24 -mt-14">
+                              <span className="text-xs font-medium">
+                                {product.price}
+                              </span>
+                            </div>
+                          </div>
+                        </>
+                      )
+                    );
+                  })}
+              </div>
+              <div className="h-1/3">
+                <h1 className="font-bold text-black capitalize text-lg lg:ml-32 text-center lg:text-left">
+                  Coffe
+                </h1>
+                {Object.keys(productData)
+                  .filter((tabKey) => tabKey.toLowerCase() === "coffee")
+                  .map((filteredTabKey) => {
+                    const products = productData[filteredTabKey];
+
+                    return products.content?.map(
+                      (product: any, productIndex: any) => (
+                        <>
+                          <div
+                            key={productIndex}
+                            className="flex mx-auto w-[80vw] mb-4 shadow-lg bg-white border-gray-200 rounded-lg text-black items-center border-b"
+                          >
+                            <div className="lg:w-3/12 flex justify-start items-center lg:my-3 lg:ml-2 ml-2">
+                              <img
+                                src={product.imageUrl}
+                                alt={product.title}
+                                className="h-16 w-12 md:w-10 md:h-32 xl:w-36 xl:h-36 object-cover rounded-md"
+                              />
+                            </div>
+                            <div className=" lg:w-full w-1/2 flex flex-col lg:justify-start lg:items-start lg:ml-0 ml-2">
+                              <span className="lg:text-lg text-sm font-bold">
+                                {product.title}
+                              </span>
+                              <span className="text-left lg:text-base text-sm">
+                                {product.description}
+                              </span>
+                            </div>
+                            <div className="w-3/12 flex items-start lg:pl-0 pl-1 lg:-mt-24 -mt-14">
+                              <span className="text-xs font-medium">
+                                {product.price}
+                              </span>
+                            </div>
+                          </div>
+                        </>
+                      )
+                    );
+                  })}
+              </div>
+            </div>
+          </div>
+        )}
+        {activeIndex === 3 && (
+          <div>
+            <div className="h-fit mt-16">
+              <div className="h-1/3 ">
+                <h1 className="font-bold text-black capitalize text-lg lg:ml-32 text-center lg:text-left">
+                  Coffee
+                </h1>
+                {Object.keys(productData)
+                  .filter((tabKey) => tabKey.toLowerCase() === "coffee")
+                  .map((filteredTabKey) => {
+                    const products = productData[filteredTabKey];
+
+                    return products.content?.map(
+                      (product: any, productIndex: any) => (
+                        <>
+                          <div
+                            key={productIndex}
+                            className="flex mx-auto w-[80vw] mb-4 shadow-lg bg-white border-gray-200 rounded-lg text-black items-center border-b"
+                          >
+                            <div className="lg:w-3/12 flex justify-start items-center lg:my-3 lg:ml-2 ml-2">
+                              <img
+                                src={product.imageUrl}
+                                alt={product.title}
+                                className="h-16 w-12 md:w-10 md:h-32 xl:w-36 xl:h-36 object-cover rounded-md"
+                              />
+                            </div>
+                            <div className=" lg:w-full w-1/2 flex flex-col lg:justify-start lg:items-start lg:ml-0 ml-2">
+                              <span className="lg:text-lg text-sm font-bold">
+                                {product.title}
+                              </span>
+                              <span className="text-left lg:text-base text-sm">
+                                {product.description}
+                              </span>
+                            </div>
+                            <div className="w-3/12 flex items-start lg:pl-0 pl-1 lg:-mt-24 -mt-14">
+                              <span className="text-xs font-medium">
+                                {product.price}
+                              </span>
+                            </div>
+                          </div>
+                        </>
+                      )
+                    );
+                  })}
+              </div>
+              <div className="h-1/3">
+                <h1 className="font-bold text-black capitalize text-lg lg:ml-32 text-center lg:text-left">
+                  Tea
+                </h1>
+                {Object.keys(productData)
+                  .filter((tabKey) => tabKey.toLowerCase() === "most-popular")
+                  .map((filteredTabKey) => {
+                    const products = productData[filteredTabKey];
+
+                    return products.content?.map(
+                      (product: any, productIndex: any) => (
+                        <>
+                          <div
+                            key={productIndex}
+                            className="flex mx-auto w-[80vw] mb-4 shadow-lg bg-white border-gray-200 rounded-lg text-black items-center border-b"
+                          >
+                            <div className="lg:w-3/12 flex justify-start items-center lg:my-3 lg:ml-2 ml-2">
+                              <img
+                                src={product.imageUrl}
+                                alt={product.title}
+                                className="h-16 w-12 md:w-10 md:h-32 xl:w-36 xl:h-36 object-cover rounded-md"
+                              />
+                            </div>
+                            <div className=" lg:w-full w-1/2 flex flex-col lg:justify-start lg:items-start lg:ml-0 ml-2">
+                              <span className="lg:text-lg text-sm font-bold">
+                                {product.title}
+                              </span>
+                              <span className="text-left lg:text-base text-sm">
+                                {product.description}
+                              </span>
+                            </div>
+                            <div className="w-3/12 flex items-start lg:pl-0 pl-1 lg:-mt-24 -mt-14">
+                              <span className="text-xs font-medium">
+                                {product.price}
+                              </span>
+                            </div>
+                          </div>
+                        </>
+                      )
+                    );
+                  })}
+              </div>
+            </div>
+          </div>
+        )}
+        {activeIndex === 4 && (
+          <div>
+            <div className="h-fit mt-16">
+              <div className="h-1/3">
+                <h1 className="font-bold text-black capitalize text-lg lg:ml-32 text-center lg:text-left">
+                  Tea
+                </h1>
+                {Object.keys(productData)
+                  .filter((tabKey) => tabKey.toLowerCase() === "most-popular")
+                  .map((filteredTabKey) => {
+                    const products = productData[filteredTabKey];
+
+                    return products.content?.map(
+                      (product: any, productIndex: any) => (
+                        <>
+                          <div
+                            key={productIndex}
+                            className="flex mx-auto w-[80vw] mb-4 shadow-lg bg-white border-gray-200 rounded-lg text-black items-center border-b"
+                          >
+                            <div className="lg:w-3/12 flex justify-start items-center lg:my-3 lg:ml-2 ml-2">
+                              <img
+                                src={product.imageUrl}
+                                alt={product.title}
+                                className="h-16 w-12 md:w-10 md:h-32 xl:w-36 xl:h-36 object-cover rounded-md"
+                              />
+                            </div>
+                            <div className=" lg:w-full w-1/2 flex flex-col lg:justify-start lg:items-start lg:ml-0 ml-2">
+                              <span className="lg:text-lg text-sm font-bold">
+                                {product.title}
+                              </span>
+                              <span className="text-left lg:text-base text-sm">
+                                {product.description}
+                              </span>
+                            </div>
+                            <div className="w-3/12 flex items-start lg:pl-0 pl-1 lg:-mt-24 -mt-14">
+                              <span className="text-xs font-medium">
+                                {product.price}
+                              </span>
+                            </div>
+                          </div>
+                        </>
+                      )
+                    );
+                  })}
+              </div>
+            </div>
+          </div>
+        )}
+        {/* Add more content for additional tabs */}
       </div>
     </div>
   );

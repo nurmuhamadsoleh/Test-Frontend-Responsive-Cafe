@@ -7,12 +7,22 @@ import { toast } from "react-toastify";
 export default function ProductContainer() {
   const supabaseUrl: any = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey: any = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  console.log("supabesurl", supabaseUrl);
   const supabase = createClient(supabaseUrl, supabaseKey);
-  const [activeTab, setActiveTab] = useState<string>("seasonal");
-  const productListRef = useRef(null);
   const [dataImage, setDataImage] = useState<any>();
-
+  const [activeIndex, setActiveIndex] = useState<number>(1);
+  const handlePrev = () => {
+    if (activeIndex > 1) {
+      setActiveIndex(activeIndex - 1);
+    } else if (activeIndex === 1) {
+      setActiveIndex(1);
+    }
+    // activeIndex - 1;
+  };
+  const handleNext = () => {
+    if (activeIndex < 4) {
+      setActiveIndex(activeIndex + 1);
+    }
+  };
   useEffect(() => {
     const fetchImage = async () => {
       try {
@@ -34,35 +44,13 @@ export default function ProductContainer() {
 
     fetchImage();
   }, []);
-  const handleMenuClick = (key: any) => {
-    // console.log("productListRef.current", productListRef.current);
-    setActiveTab(key);
-  };
-  console.log("activeTab", activeTab);
-  // useEffect(() => {
-  //   if (activeTab && productListRef.current) {
-  //     .querySelector(
-  //       `#tab-${activeTab}`
-  //     );
-  //     mengambil id menggunakan useRef
-  //     const targetElement = productListRef.current.id(`#tab-${activeTab}`);
-  //     console.log("target", targetElement);
-  //     if (targetElement) {
-  //       const yOffset = -75;
-  //       const y =
-  //         targetElement.getBoundingClientRect().top +
-  //         window.pageYOffset +
-  //         yOffset;
-  //       window.scrollTo({ top: y, behavior: "smooth" });
-  //     }
-  //   }
-  // }, [activeTab]);
   return (
     <ProductComponent
+      activeIndex={activeIndex}
+      setActiveIndex={setActiveIndex}
+      handleNext={handleNext}
+      handlePrev={handlePrev}
       dataImage={dataImage}
-      activeTab={activeTab}
-      handleMenuClick={handleMenuClick}
-      productListRef={productListRef}
     />
   );
 }

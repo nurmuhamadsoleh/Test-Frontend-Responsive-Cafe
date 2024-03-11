@@ -9,7 +9,6 @@ function DashboardContainer() {
   const handleViewQrcode = () => {
     setViewQrcode(true);
   };
-  console.log("view qrcode", viewQrcode);
   return (
     <>
       <DashboardComponent qrcode={Qrcode} handleViewQrcode={handleViewQrcode} />

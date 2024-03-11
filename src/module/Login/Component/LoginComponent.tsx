@@ -31,7 +31,7 @@ export default function LoginComponent(props: IProps) {
                       name="Email"
                       component={Input}
                       isFormItem
-                      className="w-[100%] bg-white text-black"
+                      className="w-[100%] bg-white text-black lg:w-1/3"
                       placeholder="Masukan Email Anda"
                       showError={dirty}
                     />
@@ -42,7 +42,7 @@ export default function LoginComponent(props: IProps) {
                       name="Password"
                       component={Input}
                       isFormItem
-                      className="w-[100%] bg-white text-black"
+                      className="w-[100%] bg-white text-black lg:w-1/3"
                       placeholder="Masukan Password Anda"
                       showError={dirty}
                       isPassword
